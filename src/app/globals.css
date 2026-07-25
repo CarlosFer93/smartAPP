@@ -1,0 +1,213 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* =============================================
+   SMART PREU — DESIGN SYSTEM BASE
+   ============================================= */
+
+@layer base {
+  :root {
+    --cream-bg: #F8F7F4;
+    --cream-card: #EFECE6;
+    --cream-border: #E5E0D8;
+    --smart-blue: #0F3E6D;
+    --smart-blue-dark: #0A2B4C;
+    --smart-blue-light: #1a5fa0;
+    --smart-green: #10B981;
+    --smart-green-hover: #059669;
+    --smart-green-light: #D1FAE5;
+  }
+
+  html {
+    font-family: 'Inter', system-ui, sans-serif;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+
+  body {
+    background-color: var(--cream-bg);
+    color: #1c1917;
+    min-height: 100vh;
+  }
+
+  * {
+    box-sizing: border-box;
+  }
+}
+
+/* =============================================
+   ANIMACIONES GLOBALES
+   ============================================= */
+
+@layer utilities {
+  .fade-in {
+    animation: fadeIn 0.28s ease-out;
+  }
+
+  .slide-up {
+    animation: slideUp 0.3s ease-out;
+  }
+
+  .animate-on-hover {
+    transition: transform 0.18s ease, box-shadow 0.18s ease;
+  }
+
+  .animate-on-hover:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 12px 32px -8px rgba(15, 62, 109, 0.18);
+  }
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(6px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes slideUp {
+  from {
+    opacity: 0;
+    transform: translateY(16px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* =============================================
+   KATEX — MATH RENDERING
+   ============================================= */
+
+.katex {
+  font-size: 1.05em;
+}
+
+.katex-display {
+  margin: 1.5rem 0;
+  overflow-x: auto;
+  padding: 1rem 1.25rem;
+  background: rgba(15, 62, 109, 0.04);
+  border-radius: 0.75rem;
+  border: 1px solid var(--cream-border);
+}
+
+/* =============================================
+   PROGRESS BARS
+   ============================================= */
+
+.progress-bar {
+  @apply w-full bg-stone-100 rounded-full overflow-hidden;
+}
+
+.progress-bar-fill {
+  @apply h-full rounded-full transition-all duration-700 ease-out;
+  background: linear-gradient(90deg, var(--smart-green) 0%, #34d399 100%);
+}
+
+/* =============================================
+   TARJETAS INTERACTIVAS
+   ============================================= */
+
+.card-interactive {
+  @apply bg-white rounded-2xl border border-cream-border shadow-sm;
+  @apply transition-all duration-200;
+  cursor: pointer;
+}
+
+.card-interactive:hover {
+  @apply border-stone-300;
+  box-shadow: 0 8px 24px -6px rgba(15, 62, 109, 0.12);
+  transform: translateY(-2px);
+}
+
+/* =============================================
+   BOTONES PRIMARIOS
+   ============================================= */
+
+.btn-primary {
+  @apply bg-smart-green hover:bg-smart-greenHover text-white font-bold;
+  @apply py-3.5 px-6 rounded-xl shadow-green;
+  @apply transition-all duration-200;
+  @apply flex items-center justify-center gap-2;
+}
+
+.btn-secondary {
+  @apply bg-smart-blue hover:bg-smart-blueDark text-white font-bold;
+  @apply py-3.5 px-6 rounded-xl shadow-smart;
+  @apply transition-all duration-200;
+  @apply flex items-center justify-center gap-2;
+}
+
+.btn-ghost {
+  @apply text-stone-600 hover:text-smart-blue hover:bg-stone-50;
+  @apply py-2 px-4 rounded-xl font-semibold;
+  @apply transition-all duration-200;
+  @apply flex items-center gap-2;
+}
+
+/* =============================================
+   BADGES / ETIQUETAS DE ESTADO
+   ============================================= */
+
+.badge-success {
+  @apply bg-smart-greenLight text-smart-greenHover text-xs font-bold px-2.5 py-1 rounded-full;
+}
+
+.badge-warning {
+  @apply bg-amber-50 text-amber-700 border border-amber-200 text-xs font-bold px-2.5 py-1 rounded-full;
+}
+
+.badge-danger {
+  @apply bg-red-50 text-red-700 border border-red-200 text-xs font-bold px-2.5 py-1 rounded-full;
+}
+
+.badge-info {
+  @apply bg-blue-50 text-smart-blue border border-smart-blue/20 text-xs font-bold px-2.5 py-1 rounded-full;
+}
+
+/* =============================================
+   SEMÁFORO DE DOMINIO (Portal Padres)
+   ============================================= */
+
+.semaforo-verde {
+  @apply text-emerald-600 bg-emerald-50 border-emerald-200;
+}
+
+.semaforo-amarillo {
+  @apply text-amber-600 bg-amber-50 border-amber-200;
+}
+
+.semaforo-rojo {
+  @apply text-red-600 bg-red-50 border-red-200;
+}
+
+/* =============================================
+   SCROLLBAR PERSONALIZADO
+   ============================================= */
+
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--cream-bg);
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--cream-border);
+  border-radius: 99px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #c7c0b5;
+}
