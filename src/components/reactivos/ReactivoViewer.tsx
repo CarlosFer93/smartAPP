@@ -33,20 +33,23 @@ interface ReactivoViewerProps {
 export function autoFormatLatex(text: string): string {
   if (!text) return ''
 
-  let formatted = text
+  const blocks: string[] = []
 
-  // 1. Reemplazar expresiones entre paréntesis con comandos LaTeX como (\to \theta) -> ($\to \theta$)
+  // 1. Proteger bloques KaTeX existentes ($...$ y $$...$$)
+  const placeholderText = text.replace(/(\$\$[\s\S]*?\$\$|\$[^\$\n]+\$)/g, (match) => {
+    blocks.push(match)
+    return `___MATH_BLOCK_${blocks.length - 1}___`
+  })
+
+  let formatted = placeholderText
+
+  // 2. Formatear únicamente texto fuera de bloques KaTeX
   formatted = formatted.replace(/\(([^)]*\\[a-zA-Z]+[^)]*)\)/g, (_match, p1) => `($${p1.trim()}$)`)
-
-  // 2. Reemplazar grados como 30^{\circ} o 60^{\circ} por $30^{\circ}$ si no tienen $
   formatted = formatted.replace(/(?<!\$)\b(\d+)\s*\^{\s*\\circ\s*}(?!\$)/g, (_match, p1) => `$${p1}^{\\circ}$`)
   formatted = formatted.replace(/(?<!\$)\b(\d+)\s*\\circ(?!\$)/g, (_match, p1) => `$${p1}^{\\circ}$`)
 
-  // 3. Reemplazar símbolos LaTeX sueltos como \theta, \mu_s, \tan, \Sigma sin $
-  formatted = formatted.replace(/(?<!\$)\\(theta|alpha|beta|gamma|delta|pi|sigma|Sigma|omega|mu|lambda|to|approx|cdot|frac|sqrt|tan|sin|cos)(?=[^a-zA-Z]|$)(?!\$)/g, (match) => `$${match}$`)
-
-  // 4. Limpiar cualquier triple $$$ duplicado
-  formatted = formatted.replace(/\$\$\$+/g, '$')
+  // 3. Restaurar los bloques KaTeX intactos
+  formatted = formatted.replace(/___MATH_BLOCK_(\d+)___/g, (_match, id) => blocks[parseInt(id, 10)])
 
   return formatted
 }

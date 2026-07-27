@@ -22,71 +22,57 @@ const insforge = createClient({
   anonKey: process.env.INSFORGE_ANON_KEY || 'ik_6c4aa158a6b88e3fe9c7b30cc2b348a2',
 });
 
-function formatLatexString(str) {
-  if (!str) return str;
-  let s = str;
-  
-  // Reemplazar (\to \theta) o similar por ($\to \theta$)
-  s = s.replace(/\(([^)]*\\[a-zA-Z]+[^)]*)\)/g, (_m, p1) => `($${p1.trim()}$)`);
-  
-  // Reemplazar grados 30^{\circ} o 30\circ por $30^{\circ}$
-  s = s.replace(/(?<!\$)\b(\d+)\s*\^{\s*\\circ\s*}(?!\$)/g, (_m, p1) => `$${p1}^{\\circ}$`);
-  s = s.replace(/(?<!\$)\b(\d+)\s*\\circ(?!\$)/g, (_m, p1) => `$${p1}^{\\circ}$`);
-  
-  // Reemplazar símbolos LaTeX sueltos como \theta, \Sigma, \tan sin $
-  s = s.replace(/(?<!\$)\\(theta|alpha|beta|gamma|delta|pi|sigma|Sigma|omega|mu|lambda|to|approx|cdot|frac|sqrt|tan|sin|cos)(?=[^a-zA-Z]|$)(?!\$)/g, (match) => `$${match}$`);
+function repairMathBlocks(text) {
+  if (!text) return text;
+  let s = text;
 
-  // Limpiar $$$
-  s = s.replace(/\$\$\$+/g, '$');
+  // Reparar fragmentaciones por $ extra como $approx$, $\sqrt$, etc.
+  s = s.replace(/\$\s*\\approx\s*\$/g, '\\approx');
+  s = s.replace(/\$\s*\\sqrt\s*\$/g, '\\sqrt');
+  s = s.replace(/\$\s*\\text\s*\$/g, '\\text');
+
+  // Asegurar que expresiones completas tengan su bloque $ ... $ intacto
+  s = s.replace(/\(v_x = v_0 = 2\\text\{ m\/s\}\)/g, '($v_x = v_0 = 2\\text{ m/s}$)');
+  s = s.replace(/\(g \\approx 9,8\\text\{ m\/s\}\^2\)/g, '($g \\approx 9,8\\text{ m/s}^2$)');
+  s = s.replace(/\(a_y = g \\neq 0\)/g, '($a_y = g \\neq 0$)');
+  s = s.replace(/\(v = \\sqrt\{v_x\^2 \+ v_y\^2\}\)/g, '($v = \\sqrt{v_x^2 + v_y^2}$)');
+  s = s.replace(/\(v_y = g \\cdot t\)/g, '($v_y = g \\cdot t$)');
+  s = s.replace(/15\\text\{ m\/s\}/g, '$15\\text{ m/s}$');
+  s = s.replace(/\(\\to \\theta\)/g, '($\\to \\theta$)');
+  s = s.replace(/(?<!\$)\\theta(?!\$)/g, '$\\theta$');
+  s = s.replace(/(?<!\$)\b(\d+)\s*\^{\s*\\circ\s*}(?!\$)/g, '$$1^{\\circ}$');
+
   return s;
 }
 
 async function main() {
-  console.log('--- Formateando reactivos_fisica.json ---');
-  const jsonPath = path.resolve(process.cwd(), 'scripts/reactivos_fisica.json');
-  const data = JSON.parse(fs.readFileSync(jsonPath, 'utf8'));
-
-  const cleaned = data.map(item => ({
-    ...item,
-    enunciado: formatLatexString(item.enunciado),
-    opcion_a: formatLatexString(item.opcion_a),
-    opcion_b: formatLatexString(item.opcion_b),
-    opcion_c: formatLatexString(item.opcion_c),
-    opcion_d: formatLatexString(item.opcion_d),
-    explicacion_correcta: formatLatexString(item.explicacion_correcta),
-    diagnostico_a: formatLatexString(item.diagnostico_a),
-    diagnostico_b: formatLatexString(item.diagnostico_b),
-    diagnostico_c: formatLatexString(item.diagnostico_c),
-    diagnostico_d: formatLatexString(item.diagnostico_d),
-  }));
-
-  fs.writeFileSync(jsonPath, JSON.stringify(cleaned, null, 2));
-  console.log('✅ reactivos_fisica.json actualizado.');
-
-  console.log('\n--- Actualizando registros en InsForge Database ---');
-  const { data: dbRecords, error: fetchErr } = await insforge.database.from('reactivos').select('*');
-  if (fetchErr) {
-    console.error('Error al consultar DB:', fetchErr);
+  console.log('--- Reparando y normalizando reactivos en InsForge DB ---');
+  const { data: records, error } = await insforge.database.from('reactivos').select('*');
+  
+  if (error || !records) {
+    console.error('Error al consultar DB:', error);
     return;
   }
 
-  for (const record of dbRecords) {
-    const newEnunciado = formatLatexString(record.enunciado);
-    const newOpcionA = formatLatexString(record.opcion_a);
-    const newOpcionB = formatLatexString(record.opcion_b);
-    const newOpcionC = formatLatexString(record.opcion_c);
-    const newOpcionD = formatLatexString(record.opcion_d);
-    const newExp = formatLatexString(record.explicacion_correcta);
+  let count = 0;
+  for (const r of records) {
+    const newEnunciado = repairMathBlocks(r.enunciado);
+    const newOpcionA = repairMathBlocks(r.opcion_a);
+    const newOpcionB = repairMathBlocks(r.opcion_b);
+    const newOpcionC = repairMathBlocks(r.opcion_c);
+    const newOpcionD = repairMathBlocks(r.opcion_d);
+    const newExp = repairMathBlocks(r.explicacion_correcta);
 
     if (
-      newEnunciado !== record.enunciado ||
-      newOpcionA !== record.opcion_a ||
-      newOpcionB !== record.opcion_b ||
-      newOpcionC !== record.opcion_c ||
-      newOpcionD !== record.opcion_d ||
-      newExp !== record.explicacion_correcta
+      newEnunciado !== r.enunciado ||
+      newOpcionA !== r.opcion_a ||
+      newOpcionB !== r.opcion_b ||
+      newOpcionC !== r.opcion_c ||
+      newOpcionD !== r.opcion_d ||
+      newExp !== r.explicacion_correcta
     ) {
-      console.log(`   Updating reactivo ID: ${record.id}...`);
+      count++;
+      console.log(`   Reparando reactivo ID: ${r.id}...`);
       await insforge.database.from('reactivos').update({
         enunciado: newEnunciado,
         opcion_a: newOpcionA,
@@ -94,11 +80,11 @@ async function main() {
         opcion_c: newOpcionC,
         opcion_d: newOpcionD,
         explicacion_correcta: newExp
-      }).eq('id', record.id);
+      }).eq('id', r.id);
     }
   }
 
-  console.log('🎉 Todos los registros en la base de datos fueron corregidos exitosamente.');
+  console.log(`🎉 Proceso completado. ${count} registros actualizados en InsForge.`);
 }
 
 main().catch(console.error);
