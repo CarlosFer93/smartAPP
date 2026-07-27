@@ -24,28 +24,43 @@ export default function ReactivoDemo() {
         }
 
         // Mapear los datos de InsForge a la interfaz Reactivo
-        const mapped: Reactivo[] = data.map((r: Record<string, any>) => ({
-          id: r.id,
-          lessonId: r.lesson_id || undefined,
-          subjectSlug: 'fisica',
-          enunciado: r.enunciado || '',
-          opciones: [
-            { letra: 'A', texto: r.opcion_a || '' },
-            { letra: 'B', texto: r.opcion_b || '' },
-            { letra: 'C', texto: r.opcion_c || '' },
-            { letra: 'D', texto: r.opcion_d || '' },
-          ],
-          respuestaCorrecta: (r.respuesta_correcta || 'A') as OpcionLetter,
-          explicacionCorrecta: r.explicacion_correcta || '',
-          distractores: [
-            { letra: 'A', diagnostico: r.diagnostico_a || '' },
-            { letra: 'B', diagnostico: r.diagnostico_b || '' },
-            { letra: 'C', diagnostico: r.diagnostico_c || '' },
-            { letra: 'D', diagnostico: r.diagnostico_d || '' },
-          ],
-          nivel: (r.nivel || 'medio') as 'basico' | 'medio' | 'avanzado',
-          topico: r.topico || 'Física',
-        }))
+        const mapped: Reactivo[] = data.map((r: Record<string, any>) => {
+          const getDistractorInfo = (letra: OpcionLetter) => {
+            let diag = r[`diagnostico_${letra.toLowerCase()}`] || ''
+            let pista = r[`pista_${letra.toLowerCase()}`] || undefined
+            if (Array.isArray(r.distractores)) {
+              const found = r.distractores.find((d: any) => d.letra === letra)
+              if (found) {
+                if (!diag) diag = found.diagnostico || ''
+                if (!pista) pista = found.pista || undefined
+              }
+            }
+            return { letra, diagnostico: diag, pista }
+          }
+
+          return {
+            id: r.id,
+            lessonId: r.lesson_id || undefined,
+            subjectSlug: r.materia === 'Matemáticas' ? 'matematicas' : 'fisica',
+            enunciado: r.enunciado || '',
+            opciones: [
+              { letra: 'A', texto: r.opcion_a || '' },
+              { letra: 'B', texto: r.opcion_b || '' },
+              { letra: 'C', texto: r.opcion_c || '' },
+              { letra: 'D', texto: r.opcion_d || '' },
+            ],
+            respuestaCorrecta: (r.respuesta_correcta || 'A') as OpcionLetter,
+            explicacionCorrecta: r.explicacion_correcta || '',
+            distractores: [
+              getDistractorInfo('A'),
+              getDistractorInfo('B'),
+              getDistractorInfo('C'),
+              getDistractorInfo('D'),
+            ],
+            nivel: (r.nivel || 'medio') as 'basico' | 'medio' | 'avanzado',
+            topico: r.topico || r.materia || 'Física',
+          }
+        })
 
         setReactivos(mapped)
         setError(null)

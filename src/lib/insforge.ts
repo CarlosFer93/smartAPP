@@ -10,7 +10,7 @@ import type { SmartUser, UserRole, InsForgeSession } from './types'
 // ---- Cliente InsForge (singleton) ----
 const insforge = createClient({
   baseUrl: process.env.NEXT_PUBLIC_INSFORGE_URL || 'https://iy9yd7sa.us-east.insforge.app',
-  anonKey: process.env.NEXT_PUBLIC_INSFORGE_ANON_KEY || '',
+  anonKey: process.env.NEXT_PUBLIC_INSFORGE_ANON_KEY || 'ik_6c4aa158a6b88e3fe9c7b30cc2b348a2',
 })
 
 export { insforge }
