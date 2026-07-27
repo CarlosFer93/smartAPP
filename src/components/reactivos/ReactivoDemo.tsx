@@ -1,128 +1,159 @@
 'use client'
 
+import { useState, useEffect } from 'react'
 import ReactivoViewer from './ReactivoViewer'
-import type { Reactivo } from '@/lib/types'
-
-// ============================================================
-// REACTIVO DE DEMO: Fórmula Cuadrática con LaTeX
-// ============================================================
-
-const reactivoDemo: Reactivo = {
-  id: 'demo-mat-001',
-  subjectSlug: 'matematicas',
-  topico: 'Álgebra Cuadrática',
-  nivel: 'medio',
-
-  enunciado: `
-Una empresa de ingeniería necesita determinar el tiempo (en segundos) que demora un proyectil en llegar al suelo.
-
-La altura del proyectil en función del tiempo está modelada por la ecuación:
-
-$$h(t) = -5t^2 + 20t + 25$$
-
-¿En qué instante de tiempo $t$ (en segundos) el proyectil toca el suelo (es decir, cuando $h(t) = 0$)?
-
-> Recuerda que la fórmula general para resolver una ecuación cuadrática $at^2 + bt + c = 0$ es:
-> 
-> $$t = \\frac{-b \\pm \\sqrt{b^2 - 4ac}}{2a}$$
-`.trim(),
-
-  opciones: [
-    {
-      letra: 'A',
-      texto: '$t = 1$ segundo',
-    },
-    {
-      letra: 'B',
-      texto: '$t = 5$ segundos',
-    },
-    {
-      letra: 'C',
-      texto: '$t = -1$ segundo',
-    },
-    {
-      letra: 'D',
-      texto: '$t = 3$ segundos y $t = -1$ segundo',
-    },
-  ],
-
-  respuestaCorrecta: 'B',
-
-  explicacionCorrecta: `
-**¡Correcto!** Aplicando la fórmula cuadrática con $a = -5$, $b = 20$, $c = 25$:
-
-$$t = \\frac{-20 \\pm \\sqrt{(20)^2 - 4(-5)(25)}}{2(-5)}$$
-
-$$t = \\frac{-20 \\pm \\sqrt{400 + 500}}{-10} = \\frac{-20 \\pm 30}{-10}$$
-
-Las dos soluciones son:
-- $t_1 = \\frac{-20 + 30}{-10} = \\frac{10}{-10} = -1$ (descartada: tiempo negativo)
-- $t_2 = \\frac{-20 - 30}{-10} = \\frac{-50}{-10} = \\mathbf{5}$ ✅
-
-**El proyectil toca el suelo en $t = 5$ segundos.** Los tiempos negativos no tienen significado físico en este contexto.
-`.trim(),
-
-  distractores: [
-    {
-      letra: 'A',
-      diagnostico:
-        't = 1 segundo es incorrecto. Si sustituyes t = 1 en h(t): h(1) = -5(1) + 20(1) + 25 = 40 ≠ 0. El proyectil aún está en el aire en ese instante.',
-      pista:
-        '¿Has intentado sustituir t = 1 directamente en la ecuación para verificar si da cero?',
-    },
-    {
-      letra: 'C',
-      diagnostico:
-        't = -1 es una solución matemáticamente válida de la ecuación, pero en este contexto físico el tiempo no puede ser negativo. El proyectil fue lanzado en t = 0, no antes.',
-      pista:
-        'Matemáticamente t = -1 resuelve la ecuación, pero ¿tiene sentido físico un tiempo negativo en este problema?',
-    },
-    {
-      letra: 'D',
-      diagnostico:
-        'Aunque encontraste correctamente ambas raíces de la ecuación cuadrática (t = 5 y t = -1), la respuesta debe ser solo t = 5 porque el tiempo negativo no tiene interpretación física válida en este contexto.',
-      pista:
-        'Tienes razón en que hay dos soluciones algebraicas, pero el problema pide el tiempo en que el proyectil TOCA el suelo. ¿Puedes descartar algún valor por contexto físico?',
-    },
-  ],
-}
-
-// ============================================================
-// COMPONENTE: Página de demostración del ReactivoViewer
-// ============================================================
+import { insforge } from '@/lib/insforge'
+import type { Reactivo, OpcionLetter } from '@/lib/types'
+import { Loader2, RefreshCw, ChevronLeft, ChevronRight } from 'lucide-react'
 
 export default function ReactivoDemo() {
+  const [reactivos, setReactivos] = useState<Reactivo[]>([])
+  const [currentIndex, setCurrentIndex] = useState(0)
+  const [loading, setLoading] = useState(true)
+  const [error, setError] = useState<string | null>(null)
+
+  useEffect(() => {
+    async function loadReactivos() {
+      try {
+        setLoading(true)
+        const { data, error: dbErr } = await insforge.database.from('reactivos').select('*')
+        
+        if (dbErr || !data || data.length === 0) {
+          setError(dbErr?.message || 'No se encontraron reactivos en la base de datos.')
+          return
+        }
+
+        // Mapear los datos de InsForge a la interfaz Reactivo
+        const mapped: Reactivo[] = data.map((r: Record<string, any>) => ({
+          id: r.id,
+          lessonId: r.lesson_id || undefined,
+          subjectSlug: 'fisica',
+          enunciado: r.enunciado || '',
+          opciones: [
+            { letra: 'A', texto: r.opcion_a || '' },
+            { letra: 'B', texto: r.opcion_b || '' },
+            { letra: 'C', texto: r.opcion_c || '' },
+            { letra: 'D', texto: r.opcion_d || '' },
+          ],
+          respuestaCorrecta: (r.respuesta_correcta || 'A') as OpcionLetter,
+          explicacionCorrecta: r.explicacion_correcta || '',
+          distractores: [
+            { letra: 'A', diagnostico: r.diagnostico_a || '' },
+            { letra: 'B', diagnostico: r.diagnostico_b || '' },
+            { letra: 'C', diagnostico: r.diagnostico_c || '' },
+            { letra: 'D', diagnostico: r.diagnostico_d || '' },
+          ],
+          nivel: (r.nivel || 'medio') as 'basico' | 'medio' | 'avanzado',
+          topico: r.topico || 'Física',
+        }))
+
+        setReactivos(mapped)
+        setError(null)
+      } catch (err) {
+        setError('Error al conectar con InsForge para cargar los reactivos.')
+      } finally {
+        setLoading(false)
+      }
+    }
+
+    loadReactivos()
+  }, [])
+
+  function handleNext() {
+    if (currentIndex < reactivos.length - 1) {
+      setCurrentIndex(prev => prev + 1)
+    } else {
+      // Si llegó al final, reinicia al primer reactivo
+      setCurrentIndex(0)
+    }
+  }
+
+  function handlePrev() {
+    if (currentIndex > 0) {
+      setCurrentIndex(prev => prev - 1)
+    }
+  }
+
   function handleAnswer(correcto: boolean, opcion: string) {
-    console.log(`[Demo] Respuesta: ${opcion} | Correcto: ${correcto}`)
+    console.log(`[InsForge] Reactivo ${currentIndex + 1}/${reactivos.length} | Opción: ${opcion} | Correcto: ${correcto}`)
   }
 
   function handleOpenTutor(opcionIntentada: string, diagnostico: string) {
-    alert(`🤖 Tutor IA Socrático\n\nHas marcado la opción ${opcionIntentada}.\n\nEl drawer del Tutor IA se abriría aquí con el diagnóstico:\n"${diagnostico}"`)
+    alert(`🤖 Tutor IA Socrático (InsForge)\n\nHas marcado la opción ${opcionIntentada}.\n\nDiagnóstico registrado:\n"${diagnostico}"`)
   }
 
+  if (loading) {
+    return (
+      <div className="bg-white rounded-3xl p-12 text-center space-y-4 border border-cream-border shadow-sm">
+        <Loader2 className="w-8 h-8 text-smart-blue animate-spin mx-auto" />
+        <p className="text-stone-600 font-medium text-sm">Cargando reactivos desde la base de datos de InsForge...</p>
+      </div>
+    )
+  }
+
+  if (error || reactivos.length === 0) {
+    return (
+      <div className="bg-white rounded-3xl p-8 text-center space-y-4 border border-red-200 shadow-sm">
+        <p className="text-red-500 font-semibold">{error || 'No hay reactivos disponibles'}</p>
+        <button
+          onClick={() => window.location.reload()}
+          className="btn-secondary text-xs inline-flex items-center gap-2"
+        >
+          <RefreshCw className="w-3.5 h-3.5" />
+          <span>Reintentar Carga</span>
+        </button>
+      </div>
+    )
+  }
+
+  const currentReactivo = reactivos[currentIndex]
+
   return (
-    <div className="min-h-screen bg-cream-bg py-10 px-4">
-      {/* Header de demo */}
-      <div className="max-w-3xl mx-auto mb-8 text-center">
-        <div className="inline-flex items-center gap-2 bg-smart-blue/10 text-smart-blue text-xs font-bold px-3 py-1.5 rounded-full uppercase tracking-wider mb-4">
-          <span>📐</span>
-          <span>Matemáticas · Álgebra Cuadrática</span>
+    <div className="min-h-screen bg-cream-bg py-8 px-4">
+      {/* Header del entrenador */}
+      <div className="max-w-3xl mx-auto mb-6 flex items-center justify-between">
+        <div>
+          <div className="inline-flex items-center gap-2 bg-smart-blue/10 text-smart-blue text-xs font-bold px-3 py-1.5 rounded-full uppercase tracking-wider mb-2">
+            <span>⚡</span>
+            <span>InsForge DB · Reactivos en Vivo</span>
+          </div>
+          <h1 className="text-xl md:text-2xl font-extrabold text-smart-blue">
+            Demo — ReactivoViewer con LaTeX
+          </h1>
         </div>
-        <h1 className="text-2xl font-extrabold text-smart-blue">
-          Demo — ReactivoViewer con LaTeX
-        </h1>
-        <p className="text-stone-500 text-sm mt-2">
-          Renderizado con <code className="bg-stone-100 px-1.5 py-0.5 rounded text-xs">react-markdown</code> + <code className="bg-stone-100 px-1.5 py-0.5 rounded text-xs">remark-math</code> + <code className="bg-stone-100 px-1.5 py-0.5 rounded text-xs">rehype-katex</code>
-        </p>
+
+        {/* Navegación rápida entre reactivos */}
+        <div className="flex items-center gap-2 bg-white px-3 py-1.5 rounded-xl border border-cream-border shadow-sm">
+          <button
+            onClick={handlePrev}
+            disabled={currentIndex === 0}
+            className="p-1 rounded-lg hover:bg-stone-100 disabled:opacity-30 disabled:hover:bg-transparent text-stone-600"
+            title="Anterior reactivo"
+          >
+            <ChevronLeft className="w-5 h-5" />
+          </button>
+          <span className="text-xs font-bold text-stone-700 min-w-[60px] text-center font-mono">
+            {currentIndex + 1} / {reactivos.length}
+          </span>
+          <button
+            onClick={handleNext}
+            className="p-1 rounded-lg hover:bg-stone-100 text-stone-600"
+            title="Siguiente reactivo"
+          >
+            <ChevronRight className="w-5 h-5" />
+          </button>
+        </div>
       </div>
 
-      {/* Componente real */}
+      {/* Visor interactivo del reactivo */}
       <ReactivoViewer
-        reactivo={reactivoDemo}
+        key={currentReactivo.id}
+        reactivo={currentReactivo}
         onAnswer={handleAnswer}
         onOpenTutor={handleOpenTutor}
-        numeroReactivo={1}
-        totalReactivos={5}
+        onNext={handleNext}
+        numeroReactivo={currentIndex + 1}
+        totalReactivos={reactivos.length}
       />
     </div>
   )

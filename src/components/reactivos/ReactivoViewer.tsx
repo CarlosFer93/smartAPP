@@ -19,6 +19,8 @@ interface ReactivoViewerProps {
   onAnswer?: (correcto: boolean, opcion: OpcionLetter) => void
   /** Abre el drawer del Tutor IA Socrático con el contexto */
   onOpenTutor?: (opcionIntentada: OpcionLetter, diagnostico: string) => void
+  /** Callback para avanzar al siguiente reactivo */
+  onNext?: () => void
   /** Número del reactivo en la sesión (ej: "1 de 5") */
   numeroReactivo?: number
   totalReactivos?: number
@@ -50,6 +52,7 @@ export default function ReactivoViewer({
   reactivo,
   onAnswer,
   onOpenTutor,
+  onNext,
   numeroReactivo = 1,
   totalReactivos = 1,
 }: ReactivoViewerProps) {
@@ -290,7 +293,16 @@ export default function ReactivoViewer({
             )}
             {/* Botón siguiente / reintentar */}
             <button
-              onClick={handleReintentar}
+              onClick={() => {
+                if (esCorrecta) {
+                  setOpcionSeleccionada(null)
+                  setRespondido(false)
+                  setMostrarFeedback(false)
+                  onNext?.()
+                } else {
+                  handleReintentar()
+                }
+              }}
               className={`flex items-center justify-center gap-2 py-3 px-4 rounded-xl font-bold text-sm transition-all duration-200 ${
                 esCorrecta
                   ? 'flex-1 bg-smart-green hover:bg-smart-greenHover text-white shadow-green'
