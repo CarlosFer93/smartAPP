@@ -1,0 +1,512 @@
+[
+  {
+    "materia": "Matemáticas",
+    "topico": "Porcentajes y Probabilidad",
+    "nivel": "basico",
+    "enunciado": "En la gráfica se muestran los resultados de una encuesta realizada a 200 personas, en la que se les preguntó cuál es el servicio que más utilizan de su caja de compensación.\n\n![Gráfica de barras con la cantidad de usuarios por servicio: Educación 20, Salud 60, Cultura 30, Deporte 50 y Turismo sin especificar.](https://iy9yd7sa.us-east.insforge.app/api/storage/buckets/reactivos/objects/imagen_14.png)\n\nDe acuerdo con la información anterior, si se escoge al azar uno de los 200 encuestados, ¿cuál es la probabilidad de que el servicio más utilizado por esta persona sea el turismo?",
+    "opcion_a": "20%",
+    "opcion_b": "15%",
+    "opcion_c": "40%",
+    "opcion_d": "30%",
+    "respuesta_correcta": "A",
+    "explicacion_correcta": "Para hallar el número de personas que prefieren turismo, restamos del total los demás servicios: $200 - (20 + 60 + 30 + 50) = 40$ personas. Luego, aplicamos la definición de probabilidad o porcentaje: $Porcentaje = (\\frac{40}{200}) \\times 100\\% = 20\\%$.",
+    "distractores": [
+      {
+        "letra": "A",
+        "diagnostico": "¡Excelente! Has determinado correctamente el valor faltante en la gráfica y aplicado la definición de probabilidad porcentual.",
+        "pista": "Continúa aplicando este razonamiento en problemas de frecuencia y probabilidad."
+      },
+      {
+        "letra": "B",
+        "diagnostico": "Confundes la frecuencia de educación (20 personas) con el porcentaje, o realizas un cálculo incorrecto de la diferencia del total.",
+        "pista": "¿Cuánto suman las barras visibles en la gráfica y cuánto falta para llegar a 200?"
+      },
+      {
+        "letra": "C",
+        "diagnostico": "Confundes la frecuencia absoluta (40 personas que eligen turismo) con el porcentaje o probabilidad relativa.",
+        "pista": "Recuerda que 40 es el número de personas, no el porcentaje. ¿Cómo conviertes 40 de 200 en un porcentaje?"
+      },
+      {
+        "letra": "D",
+        "diagnostico": "Asocias erróneamente la probabilidad con otra barra de la gráfica, como la de cultura (30 personas).",
+        "pista": "Verifica qué barra representa al turismo y calcula su proporción respecto al total de 200 personas."
+      }
+    ]
+  },
+  {
+    "materia": "Matemáticas",
+    "topico": "Porcentajes y Muestreo",
+    "nivel": "basico",
+    "enunciado": "Un proyecto para el mejoramiento de la calidad de vida de las personas de un municipio de 1.500 habitantes adultos y 500 niños considera dos estudios: para el primero se escogieron aleatoriamente 300 adultos para que respondieran una encuesta y para el segundo se eligieron 200 niños para hacerles la entrevista. ¿A qué porcentaje de la población de cada estudio corresponden las dos muestras?",
+    "opcion_a": "Al 50% en cada caso.",
+    "opcion_b": "Al 20% y 40%, respectivamente.",
+    "opcion_c": "Al 25% en cada caso.",
+    "opcion_d": "Al 30% y 20% respectivamente.",
+    "respuesta_correcta": "B",
+    "explicacion_correcta": "Se calcula el porcentaje de cada muestra dividiendo la muestra entre su población respectiva y multiplicando por $100\\%$. Para los adultos: $(\\frac{300}{1500}) \\times 100\\% = 20\\%$. Para los niños: $(\\frac{200}{500}) \\times 100\\% = 40\\%$.",
+    "distractores": [
+      {
+        "letra": "A",
+        "diagnostico": "Asumes incorrectamente que ambas muestras representan la mitad de la población sin verificar los cocientes.",
+        "pista": "¿Es 300 la mitad de 1.500? Divide el tamaño de la muestra entre el total de su grupo."
+      },
+      {
+        "letra": "B",
+        "diagnostico": "¡Muy bien! Has aplicado correctamente la fórmula del porcentaje para cada grupo de población de forma independiente.",
+        "pista": "Este es el método adecuado para comparar proporciones en distintas poblaciones."
+      },
+      {
+        "letra": "C",
+        "diagnostico": "Calculas una proporción errónea, posiblemente dividiendo la suma total de las muestras entre algún valor promedio.",
+        "pista": "Analiza cada grupo por separado: ¿qué fracción de 1.500 es 300?"
+      },
+      {
+        "letra": "D",
+        "diagnostico": "Inviertes los porcentajes o relacionas incorrectamente los numeradores con los denominadores de los dos grupos.",
+        "pista": "Verifica a qué grupo corresponde cada total: 300 de 1.500 para adultos y 200 de 500 para niños."
+      }
+    ]
+  },
+  {
+    "materia": "Matemáticas",
+    "topico": "Porcentajes Sucesivos",
+    "nivel": "medio",
+    "enunciado": "Una empresa de inversiones ofrece el 10% de rendimiento trimestral de la inversión a sus clientes y, al finalizar un trimestre, la empresa cobra el 25% del rendimiento obtenido. Para calcular la ganancia que obtiene un cliente por su inversión al finalizar un trimestre, un trabajador de la empresa efectúa el siguiente procedimiento:\n\nPaso 1. Calcula el 10% de la inversión.\nPaso 2. Calcula el 25% del resultado del paso 1.\nPaso 3. Resta el resultado del paso 2 al resultado del paso 1.\n\nSi un cliente invierte $5.000.000 en dicha empresa, ¿cuál será la ganancia que obtendrá al finalizar el trimestre?",
+    "opcion_a": "$1.500.000",
+    "opcion_b": "$750.000",
+    "opcion_c": "$500.000",
+    "opcion_d": "$375.000",
+    "respuesta_correcta": "D",
+    "explicacion_correcta": "Siguiendo los pasos: en el Paso 1 se calcula el $10\\%$ de $$5.000.000$, que es $$500.000$. En el Paso 2 se calcula el $25\\%$ de $$500.000$, que equivale al cobro de la empresa: $$125.000$. En el Paso 3 se resta ese cobro del rendimiento inicial: $$500.000 - $125.000 = $375.000$.",
+    "distractores": [
+      {
+        "letra": "A",
+        "diagnostico": "Sumas porcentajes de manera incorrecta o aplicas el $25\\%$ y el $10\\%$ directamente sobre el capital original sumando resultados.",
+        "pista": "Recuerda que el $25\\%$ se calcula sobre el rendimiento obtenido (el resultado del paso 1), no sobre los $$5.000.000$."
+      },
+      {
+        "letra": "B",
+        "diagnostico": "Confundes los porcentajes y calculas el $15\\%$ directo de la inversión ($25\\% - 10\\%$).",
+        "pista": "No puedes restar porcentajes directamente si se aplican a cantidades diferentes. Sigue paso a paso el procedimiento."
+      },
+      {
+        "letra": "C",
+        "diagnostico": "Te detienes en el Paso 1, calculando únicamente el rendimiento bruto ($10\\%$) sin restar la comisión de la empresa.",
+        "pista": "¿Qué falta hacer con el cobro del $25\\%$ que realiza la empresa sobre ese rendimiento?"
+      },
+      {
+        "letra": "D",
+        "diagnostico": "¡Perfecto! Has seguido e interpretado correctamente el algoritmo de porcentajes en cadena y restado la comisión.",
+        "pista": "Siempre ten en cuenta cuál es la base (el total) sobre la que se calcula cada porcentaje."
+      }
+    ]
+  },
+  {
+    "materia": "Matemáticas",
+    "topico": "Descuentos Simples",
+    "nivel": "basico",
+    "enunciado": "Mateo tiene una tienda en la que vende zapatos. Para una semana específica, Mateo decide aplicar la siguiente oferta:\n\nDescuento del 20% en cada par de zapatos.\n\n¿Cuál es el descuento para un par de zapatos que tienen un precio de $75.000?",
+    "opcion_a": "$55.000",
+    "opcion_b": "$60.000",
+    "opcion_c": "$15.000",
+    "opcion_d": "$20.000",
+    "respuesta_correcta": "C",
+    "explicacion_correcta": "El descuento corresponde al $20\\%$ del precio original. Se calcula multiplicando el precio por el porcentaje decimal: $$75.000 \\times 0,20 = $15.000$.",
+    "distractores": [
+      {
+        "letra": "A",
+        "diagnostico": "Restas el valor numérico del porcentaje ($20$) o una cantidad fija incorrecta como $$20.000$ al precio original.",
+        "pista": "¿Estás calculando el porcentaje correctamente o simplemente restando un número fijo?"
+      },
+      {
+        "letra": "B",
+        "diagnostico": "Calculas el precio final a pagar en lugar del valor del descuento.",
+        "pista": "Ese es el precio que se paga tras aplicar la oferta. Vuelve a leer: ¿qué te pregunta el enunciado exactamente?"
+      },
+      {
+        "letra": "C",
+        "diagnostico": "¡Correcto! Has determinado el valor del descuento multiplicando el precio original por el porcentaje de la oferta.",
+        "pista": "Esta diferenciación entre 'descuento' y 'precio final' es clave en las pruebas."
+      },
+      {
+        "letra": "D",
+        "diagnostico": "Asumes que el $20\\%$ equivale literalmente a $$20.000$ pesos, confundiendo porcentaje con valor absoluto.",
+        "pista": "El signo de porcentaje ($\\%$) indica una proporción (una parte de cada cien), no una suma fija en pesos."
+      }
+    ]
+  },
+  {
+    "materia": "Matemáticas",
+    "topico": "Cálculo del Total a partir del Porcentaje",
+    "nivel": "basico",
+    "enunciado": "La mamá de Alfonso tiene un cultivo de plantas aromáticas. Alfonso tiene que ayudarle a fertilizar 115 plantas de hierbabuena, que corresponden al 25% de todo el cultivo. ¿Cuántas plantas en total tiene el cultivo?",
+    "opcion_a": "460",
+    "opcion_b": "230",
+    "opcion_c": "140",
+    "opcion_d": "28",
+    "respuesta_correcta": "A",
+    "explicacion_correcta": "El $25\\%$ equivale a la cuarta parte del total ($\\frac{25}{100} = \\frac{1}{4}$). Si la cuarta parte son $115$ plantas, el total se obtiene multiplicando por 4: $115 \\times 4 = 460$ plantas.",
+    "distractores": [
+      {
+        "letra": "A",
+        "diagnostico": "¡Excelente! Comprendiste la relación inversa de los porcentajes para reconstruir la cantidad total a partir de la parte.",
+        "pista": "Multiplicar por 4 cuando te dan el $25\\%$ es una estrategia mental muy eficiente."
+      },
+      {
+        "letra": "B",
+        "diagnostico": "Multiplicaste la cantidad por 2, calculando el equivalente al $50\\%$ en lugar del $100\\%$.",
+        "pista": "Si $115$ es el $25\\%$, el doble ($230$) sería el $50\\%$. ¿Cómo llegas al total ($100\\%$)?"
+      },
+      {
+        "letra": "C",
+        "diagnostico": "Sumaste simplemente el número $25$ a las $115$ plantas sin aplicar ninguna proporcionalidad.",
+        "pista": "Un porcentaje no se puede sumar directamente como una cantidad absoluta de unidades."
+      },
+      {
+        "letra": "D",
+        "diagnostico": "Dividiste $115$ entre $4$ (o el $25\\%$ de 115), calculando una parte más pequeña en vez del total del cultivo.",
+        "pista": "El total del cultivo debe ser mucho mayor que las $115$ plantas. ¿Qué operación te permite ampliar la cantidad?"
+      }
+    ]
+  },
+  {
+    "materia": "Matemáticas",
+    "topico": "Porcentajes Complementarios y Grupos Excluyentes",
+    "nivel": "medio",
+    "enunciado": "En una tienda de animales, el administrador realiza el siguiente procedimiento para hacer un inventario de sus canarios:\n\n1. Separa los canarios en tres grupos excluyentes: canarios de color, canarios de forma y canarios de canto.\n2. Cuenta la cantidad de canarios de cada grupo.\n3. Divide el número de canarios de cada grupo entre el número total de canarios, y el resultado los multiplica por 100%.\n\nSi en la tienda de animales el 40% son canarios de canto, entonces, después de realizar el inventario, se tendrá:",
+    "opcion_a": "El 20% de canarios de forma y el 20% de color.",
+    "opcion_b": "El 30% entre canarios de forma y color.",
+    "opcion_c": "El 30% de canarios de forma y el 30% de color.",
+    "opcion_d": "El 60% entre canarios de forma y color.",
+    "respuesta_correcta": "D",
+    "explicacion_correcta": "Al ser grupos excluyentes, la suma de los tres porcentajes debe completar el total del inventario ($100\\%$). Si los canarios de canto representan el $40\\%$, el porcentaje restante para los otros dos grupos juntos (forma y color) es la diferencia: $100\\% - 40\\% = 60\\%$.",
+    "distractores": [
+      {
+        "letra": "A",
+        "diagnostico": "Asumes arbitrariamente que el porcentaje del grupo de canto ($40\\%$) se divide en dos mitades iguales para los otros grupos.",
+        "pista": "¿El enunciado dice que el resto de canarios o el grupo de canto se reparte por igual? ¿Cuánto debe sumar el total de la tienda?"
+      },
+      {
+        "letra": "B",
+        "diagnostico": "Calculas erróneamente la mitad del porcentaje restante o confundes la suma total con el $70\\%$.",
+        "pista": "Si tienes un $40\\%$ en un grupo y un $30\\%$ en el resto, te faltaría un $30\\%$ para llegar al total de la tienda."
+      },
+      {
+        "letra": "C",
+        "diagnostico": "Asumes sin evidencia que los grupos de forma y color tienen exactamente el $30\\%$ cada uno; aunque suman $60\\%$, no se puede asegurar que sean iguales.",
+        "pista": "Sabemos cuánto suman los dos grupos juntos, pero ¿tenemos datos para afirmar que están repartidos en partes exactamente iguales?"
+      },
+      {
+        "letra": "D",
+        "diagnostico": "¡Muy bien! Has aplicado el concepto de probabilidad y porcentajes complementarios para determinar la suma de los grupos restantes.",
+        "pista": "Reconocer cuándo la información solo permite conocer una suma y no valores individuales demuestra gran madurez analítica."
+      }
+    ]
+  },
+  {
+    "materia": "Matemáticas",
+    "topico": "Álgebra y Porcentajes de Descuento",
+    "nivel": "medio",
+    "enunciado": "Una familia fue a hacer mercado y compraron dos productos que tenían descuento, una arroba de arroz con el 20% de descuento y una caja de panela con el 10% de descuento. Para saber la cantidad de dinero que se les descontó de la compra se puede usar la expresión algebraica:\n\n$z = 0,2x + 0,1y$\n\nEn donde x representa el precio de la arroba de arroz, y representa el precio de la caja de panela y z representa la cantidad total de dinero que se descontó.\n\n¿Es posible calcular el valor de z con la información que se conoce?",
+    "opcion_a": "Sí, porque la expresión considera los dos porcentajes de descuento.",
+    "opcion_b": "No, porque se desconoce el valor de x y el valor de y.",
+    "opcion_c": "No, porque 0,2 es diferente al 20% y 0,1 es diferente al 10%.",
+    "opcion_d": "Sí, porque solo se debe sumar el 0,2 y el 0,1.",
+    "respuesta_correcta": "B",
+    "explicacion_correcta": "La ecuación $z = 0,2x + 0,1y$ es correcta para modelar el descuento total, pero para obtener un valor numérico de $z$ es imprescindible conocer los precios originales de los productos ($x$ e $y$), los cuales no se proporcionan en el enunciado.",
+    "distractores": [
+      {
+        "letra": "A",
+        "diagnostico": "Confundes tener una fórmula o modelo algebraico válido con tener suficientes datos numéricos para resolverla.",
+        "pista": "¿Puedes dar un número exacto para $z$ si no sabes cuánto costaba el arroz ni la panela?"
+      },
+      {
+        "letra": "B",
+        "diagnostico": "¡Correcto! Identificaste que una ecuación lineal con tres variables no se puede evaluar numéricamente si faltan los valores de las variables independientes.",
+        "pista": "En el ICFES es vital distinguir entre 'plantear un modelo' y 'evaluar un modelo'."
+      },
+      {
+        "letra": "C",
+        "diagnostico": "Te equivocas en la equivalencia entre porcentajes y números decimales; $0,2$ es exactamente igual al $20\\%$ y $0,1$ al $10\\%$.",
+        "pista": "Divide $20$ entre $100$ en tu mente o en papel: ¿qué número decimal obtienes?"
+      },
+      {
+        "letra": "D",
+        "diagnostico": "Incurres en el error de sumar las tasas de porcentaje decimales omitiendo que deben multiplicarse por precios que son distintos y desconocidos.",
+        "pista": "¿Puedes sumar descuentos de productos diferentes sin importar cuánto cuesta cada uno?"
+      }
+    ]
+  },
+  {
+    "materia": "Matemáticas",
+    "topico": "Condicionales y Porcentajes en Finanzas",
+    "nivel": "avanzado",
+    "enunciado": "En un país las personas deben pagar el llamado 'impuesto distributivo' que es equivalente a la suma del 5% de los ingresos totales del año anterior más el 1% del patrimonio bruto. Este impuesto, sin embargo, solo debe ser pagado por aquellos ciudadanos cuyo patrimonio supere los 350.000 dólares o que el 40% de sus ingresos del año anterior sean mayores que 20.000 dólares. La tabla contiene la información de algunos ciudadanos.\n\n| Nombre | Ingresos totales año anterior | Patrimonio |\n|---|---|---|\n| Luisa | 16.000 | 400.000 |\n| Ernesta | 400.000 | 100.000 |\n| Paolo | 45.000 | 300.000 |\n\n¿A cuál o cuáles de estos ciudadanos se le debe cobrar el 'impuesto distributivo'?",
+    "opcion_a": "Luisa y Ernesta únicamente.",
+    "opcion_b": "Luisa y Paolo únicamente.",
+    "opcion_c": "Solamente Ernesta.",
+    "opcion_d": "Solamente Paolo.",
+    "respuesta_correcta": "A",
+    "explicacion_correcta": "Se evalúan las dos condiciones de cobro (basta con cumplir una por el conector 'o'):\n1. Patrimonio $> 350.000$: Luisa lo cumple ($400.000 > 350.000$). Ernesta ($100.000$) y Paolo ($300.000$) no.\n2. $40\\%$ de Ingresos $> 20.000$: Para Ernesta, $40\\%$ de $400.000 = 160.000 > 20.000$, por lo que lo cumple. Para Paolo, $40\\%$ de $45.000 = 18.000 < 20.000$, no lo cumple.\nPor tanto, solo Luisa y Ernesta deben pagar el impuesto.",
+    "distractores": [
+      {
+        "letra": "A",
+        "diagnostico": "¡Exacto! Evaluaste de manera sistemática los criterios lógicos ('o') y porcentajes para cada ciudadano en la tabla.",
+        "pista": "La atención al detalle en condiciones compuestas con disyunción lógica es un diferenciador clave en el nivel avanzado."
+      },
+      {
+        "letra": "B",
+        "diagnostico": "Calculaste mal el $40\\%$ de los ingresos de Paolo, pensando erróneamente que $45.000$ supera el umbral requerido.",
+        "pista": "¿Cuánto es el $40\\%$ de $45.000$? Multiplica $45.000 \\times 0,40$ y compáralo con $20.000$."
+      },
+      {
+        "letra": "C",
+        "diagnostico": "Pasaste por alto la primera condición (patrimonio superior a $350.000$), la cual clasifica automáticamente a Luisa.",
+        "pista": "Revisa la columna de 'Patrimonio' para Luisa. ¿Es su valor mayor a $350.000$?"
+      },
+      {
+        "letra": "D",
+        "diagnostico": "Confundiste todas las condiciones o interpretaste la regla de forma inversa, seleccionando al único ciudadano que no cumple ningún requisito.",
+        "pista": "Verifica a Paolo: ni su patrimonio llega a $350.000$, ni el $40\\%$ de sus ingresos ($18.000$) supera los $20.000$."
+      }
+    ]
+  },
+  {
+    "materia": "Matemáticas",
+    "topico": "Estadística y Margen de Error Porcentual",
+    "nivel": "medio",
+    "enunciado": "Una fábrica de lápices que realiza el control de calidad de sus productos, selecciona una muestra de 100 lápices. En la siguiente tabla se registra la longitud de los mismos:\n\n| Cantidad de lápices | Longitud (mm) |\n|---|---|\n| 8 | 149 |\n| 16 | 150 |\n| 65 | 151 |\n| 11 | 152 |\n\nCon base en la información presentada en la anterior tabla y teniendo en cuenta que el margen de error del control de calidad es del 3%, el porcentaje correspondiente a los lápices producidos que miden 150 mm está entre",
+    "opcion_a": "el 8% y el 16%.",
+    "opcion_b": "el 13% y el 19%.",
+    "opcion_c": "el 15% y el 18%.",
+    "opcion_d": "el 16% y el 65%.",
+    "respuesta_correcta": "B",
+    "explicacion_correcta": "El total de la muestra es de $100$ lápices ($8 + 16 + 65 + 11 = 100$). Los lápices que miden $150\\text{ mm}$ son $16$, lo que equivale al $16\\%$. Al considerar un margen de error del $3\\%$, el intervalo real se obtiene restando y sumando este margen al porcentaje muestral: $[16\\% - 3\\%, 16\\% + 3\\%] = [13\\%, 19\\%]$.",
+    "distractores": [
+      {
+        "letra": "A",
+        "diagnostico": "Tomas el valor de la categoría anterior ($8$ lápices de $149\\text{ mm}$) como el límite inferior en lugar de aplicar el margen de error del $3\\%$.",
+        "pista": "El margen de error te dice cuánto puede variar hacia abajo o hacia arriba el valor hallado ($16\\%$). ¿Cuánto es $16 - 3$?"
+      },
+      {
+        "letra": "B",
+        "diagnostico": "¡Muy bien! Has calculado correctamente la frecuencia relativa muestral ($16\\%$) y aplicado el intervalo de confianza restando y sumando el margen de error.",
+        "pista": "Esta comprensión de intervalos estadísticos es muy evaluada en las competencias de interpretación de datos."
+      },
+      {
+        "letra": "C",
+        "diagnostico": "Aplicas un margen de error incorrecto ($1\\%$ y $2\\%$) en lugar del $3\\%$ establecido por el control de calidad.",
+        "pista": "Revisa cuánto te pide restar y sumar el enunciado: dice claramente 'margen de error del $3\\%'."
+      },
+      {
+        "letra": "D",
+        "diagnostico": "Formas el intervalo usando las frecuencias consecutivas de la tabla ($16$ y $65$) ignorando el concepto de margen de error.",
+        "pista": "No debes mirar la siguiente fila de la tabla; debes sumarle y restarle el margen de error ($3\\%$) al porcentaje del grupo de $150\\text{ mm}$."
+      }
+    ]
+  },
+  {
+    "materia": "Matemáticas",
+    "topico": "Representación Gráfica de Porcentajes",
+    "nivel": "medio",
+    "enunciado": "En un salón de clases de una universidad se registran los datos de las ciudades de origen de 20 estudiantes. Los resultados se observan en la gráfica.\n\n![Gráfica de ciudades de origen de 20 estudiantes: Cali 1, Medellín 3, Barranquilla 4, Bogotá 12.](https://iy9yd7sa.us-east.insforge.app/api/storage/buckets/reactivos/objects/imagen_15.png)\n\nSi se quiere expresar en porcentajes los datos de la figura, la información se debe escribir de la siguiente manera:",
+    "opcion_a": "Cali 1%, Barranquilla 4%, Bogotá 12% y Medellín 3%",
+    "opcion_b": "Cali 5%, Barranquilla 20%, Bogotá 60% y Medellín 15%",
+    "opcion_c": "Cali 10%, Barranquilla 40%, Bogotá 120% y Medellín 30%",
+    "opcion_d": "Cali 0,05%, Barranquilla 0,2%, Bogotá 0,6% y Medellín 0,03%",
+    "respuesta_correcta": "B",
+    "explicacion_correcta": "Para convertir las frecuencias absolutas a porcentaje respecto a un total de 20 estudiantes, se multiplica cada valor por $5$ (ya que $\\frac{1}{20} = \\frac{5}{100} = 5\\%$): Cali: $1 \\times 5\\% = 5\\%$; Medellín: $3 \\times 5\\% = 15\\%$; Barranquilla: $4 \\times 5\\% = 20\\%$; Bogotá: $12 \\times 5\\% = 60\\%$.",
+    "distractores": [
+      {
+        "letra": "A",
+        "diagnostico": "Confundes el número de estudiantes (frecuencia absoluta) directamente con los porcentajes, olvidando que el total es 20 y no 100.",
+        "pista": "Si sumas esos porcentajes ($1 + 4 + 12 + 3$), obtienes $20\\%$. ¿No debería el total del salón ser el $100\\%$?"
+      },
+      {
+        "letra": "B",
+        "diagnostico": "¡Correcto! Convertiste adecuadamente las proporciones sobre 20 estudiantes a porcentajes sobre 100.",
+        "pista": "Multiplicar por 5 cuando el total es 20 es un atajo mental perfecto para ganar tiempo en el examen."
+      },
+      {
+        "letra": "C",
+        "diagnostico": "Multiplicaste las frecuencias por 10 (como si el total fuera 10), lo que lleva a que la suma de porcentajes exceda el $100\\%$ (dando $200\\%$).",
+        "pista": "Verifica Bogotá: ¿es lógico que una parte del salón represente el $120\\%$ de todo el salón?"
+      },
+      {
+        "letra": "D",
+        "diagnostico": "Dividiste la frecuencia entre el total pero olvidaste multiplicar por $100\\%$, o dividiste entre un factor erróneo como 2.000.",
+        "pista": "Los números decimales obtenidos al dividir ($0,05$, etc.) son proporciones; para que sean porcentajes debes multiplicarlos por $100$."
+      }
+    ]
+  },
+  {
+    "materia": "Matemáticas",
+    "topico": "Estrategias de Cálculo Mental de Porcentajes",
+    "nivel": "medio",
+    "enunciado": "Una tienda de ropa va a cerrar uno de sus locales y está vendiendo todas las prendas con un descuento del 20%. ¿Cuál de las siguientes estrategias NO permite calcular el descuento de una prenda de la tienda?",
+    "opcion_a": "Calcular el 1% del precio de la prenda y, luego, dividir el resultado entre 20.",
+    "opcion_b": "Calcular el 1% del precio de la prenda y, luego, multiplicar el resultado por 20.",
+    "opcion_c": "Calcular el 10% del precio de la prenda y, luego, multiplicar el resultado por 2.",
+    "opcion_d": "Calcular el 40% del precio de la prenda y, luego, dividir el resultado entre 2.",
+    "respuesta_correcta": "A",
+    "explicacion_correcta": "Se busca la estrategia que NO permite obtener el $20\\%$. En la opción A, calcular el $1\\%$ y luego dividir entre 20 equivale a calcular un porcentaje de $\\frac{1\\%}{20} = 0,05\\%$, lo cual es incorrecto. Las demás opciones sí son equivalentes al $20\\%$ ($1\\% \\times 20 = 20\\%$, $10\\% \\times 2 = 20\\%$, y $\\frac{40\\%}{2} = 20\\%$).",
+    "distractores": [
+      {
+        "letra": "A",
+        "diagnostico": "¡Perfecto! Identificaste correctamente la operación inválida, ya que dividir el $1\\%$ entre 20 reduce el valor en lugar de llevarlo al $20\\%$.",
+        "pista": "Esta pregunta evalúa tu capacidad para detectar errores en algoritmos matemáticos equivalentes."
+      },
+      {
+        "letra": "B",
+        "diagnostico": "Esta estrategia SÍ es correcta ($1\\% \\times 20 = 20\\%$); recuerda que la pregunta te pide encontrar la opción que NO funciona.",
+        "pista": "Lee con mucho cuidado los enunciados en negrita o mayúscula: ¿qué te piden buscar, lo correcto o lo incorrecto?"
+      },
+      {
+        "letra": "C",
+        "diagnostico": "Esta estrategia SÍ permite calcular el descuento ($10\\% \\times 2 = 20\\%$), por lo que no es la respuesta a la pregunta '¿cuál NO permite?'.",
+        "pista": "Revisa bien: el doble del diez por ciento es veinte por ciento. Busca la opción donde la matemática falle."
+      },
+      {
+        "letra": "D",
+        "diagnostico": "Esta estrategia SÍ funciona ya que la mitad del $40\\%$ es exactamente el $20\\%$. Debes marcar la opción errónea.",
+        "pista": "Divide $40$ entre $2$: ¿da $20$? Como sí funciona, sigue buscando la opción que no sea equivalente."
+      }
+    ]
+  },
+  {
+    "materia": "Matemáticas",
+    "topico": "Porcentaje que Representa una Cantidad",
+    "nivel": "basico",
+    "enunciado": "Juan entra en una librería y quiere comprar un libro que cuesta $20.000. La librería tiene la siguiente oferta:\n\nHOY\nRecibe $6.000 de descuento en cada libro que compres\n\n¿A qué porcentaje del precio del libro que quiere Juan corresponde este descuento?",
+    "opcion_a": "70%",
+    "opcion_b": "60%",
+    "opcion_c": "40%",
+    "opcion_d": "30%",
+    "respuesta_correcta": "D",
+    "explicacion_correcta": "Se aplica la relación parte-todo para calcular el porcentaje: $(\\frac{6.000}{20.000}) \\times 100\\% = (\\frac{6}{20}) \\times 100\\% = 0,30 \\times 100\\% = 30\\%$.",
+    "distractores": [
+      {
+        "letra": "A",
+        "diagnostico": "Calculaste el porcentaje que representa el precio a pagar ($$14.000$), el cual es el $70\\%$, en lugar del porcentaje del descuento.",
+        "pista": "Si el descuento es de $6.000$, lo que pagas es $14.000$. Revisa: ¿la pregunta te pide el porcentaje de lo que pagas o de lo que te descuentan?"
+      },
+      {
+        "letra": "B",
+        "diagnostico": "Realizaste un cálculo incorrecto de la fracción o confundiste el $30\\%$ con su doble.",
+        "pista": "Simplifica la fracción: elimínale los tres ceros ($\\frac{6}{20}$) y luego saca mitad ($\\frac{3}{10}$). ¿Qué porcentaje es tres décimos?"
+      },
+      {
+        "letra": "C",
+        "diagnostico": "Estimaste de manera incorrecta la proporción, asumiendo que $6.000$ es el $40\\%$ de $20.000$ (el cual sería $8.000$).",
+        "pista": "El $10\\%$ de $$20.000$ son $$2.000$. ¿Cuántas veces cabe $2.000$ en el descuento de $6.000$?"
+      },
+      {
+        "letra": "D",
+        "diagnostico": "¡Muy bien! Relacionaste correctamente la cantidad del descuento con el precio total para hallar la tasa porcentual.",
+        "pista": "Usar el $10\\%$ como bloque de construcción es una gran técnica mental."
+      }
+    ]
+  },
+  {
+    "materia": "Matemáticas",
+    "topico": "Porcentajes en Cadena y Distribución de Recursos",
+    "nivel": "avanzado",
+    "enunciado": "Una compañía recaudó $24.000.000 y, de ellos, donó el 10% a una fundación encargada de cuidar animales. La fundación gastó el 40% del dinero que le donaron comprando concentrado para los animales y, con el dinero restante, compró materiales de construcción. Para calcular el dinero utilizado en materiales de construcción, se puede utilizar el siguiente procedimiento:\n\nPaso 1. Multiplicar 24.000.000 por 0,1.\nPaso 2. Multiplicar el resultado del paso 1 por 0,4.\nPaso 3. Restar el resultado del paso 2 al resultado del paso 1.\n\n¿Cuánto dinero de la donación destinó la fundación para los materiales de construcción?",
+    "opcion_a": "$960.000",
+    "opcion_b": "$240.000",
+    "opcion_c": "$1.440.000",
+    "opcion_d": "$8.640.000",
+    "respuesta_correcta": "C",
+    "explicacion_correcta": "Paso 1: Se obtiene la donación inicial que es el $10\\%$ de $$24.000.000 = $2.400.000$. Paso 2: Se calcula el gasto en concentrado, que es el $40\\%$ de esa donación: $$2.400.000 \\times 0,4 = $960.000$. Paso 3: Se resta el gasto en concentrado de la donación total para obtener el dinero para materiales: $$2.400.000 - $960.000 = $1.440.000$.",
+    "distractores": [
+      {
+        "letra": "A",
+        "diagnostico": "Te detuviste en el Paso 2; calculaste el dinero gastado en concentrado para animales ($40\\%$) en lugar del dinero para materiales de construcción.",
+        "pista": "Ese es el valor del concentrado. Lee el Paso 3 del procedimiento: ¿qué te falta hacer con ese resultado?"
+      },
+      {
+        "letra": "B",
+        "diagnostico": "Calculaste el $1\\%$ en lugar del $10\\%$ en el primer paso, o dividiste incorrectamente por 100 en algún punto.",
+        "pista": "El $10\\%$ de $24.000.000$ se obtiene quitando un solo cero. Revisa tus multiplicaciones decimales."
+      },
+      {
+        "letra": "C",
+        "diagnostico": "¡Excelente! Ejecutaste correctamente el procedimiento paso a paso para hallar el remanente de una donación sucesiva.",
+        "pista": "También podrías haber multiplicado directamente $$2.400.000 \\times 0,60$, ahorrando una resta en el examen."
+      },
+      {
+        "letra": "D",
+        "diagnostico": "Restaste el $40\\%$ directamente al total recaudado de $$24.000.000$ o aplicaste los porcentajes sobre la base equivocada.",
+        "pista": "El $40\\%$ se calcula sobre lo que se donó a la fundación, no sobre los $24$ millones de toda la compañía."
+      }
+    ]
+  },
+  {
+    "materia": "Matemáticas",
+    "topico": "Análisis de Suficiencia de Datos en Porcentajes",
+    "nivel": "avanzado",
+    "enunciado": "Una entidad recolectó donaciones que se usarán para dos causas: Atención a desastres naturales y atención social. La forma de distribuir los recursos se realiza de la siguiente manera:\n\nCondición 1. 60% a la región norte del país y 40% a la región sur.\nCondición 2. 25% a desastres naturales y 75% a la atención social.\nCondición 3. Del monto destinado a la región norte, 15% a desastres naturales y 85% a la atención social.\nCondición 4. Del monto destinado a la región sur, 40% a desastres naturales y 60% a la atención social.\n\nPara calcular el monto en pesos de las donaciones destinadas a la atención de desastres naturales en la región norte, ¿qué datos se necesitan?",
+    "opcion_a": "El monto total de las donaciones y la información de las condiciones 1 y 3.",
+    "opcion_b": "La información de las condiciones 1 y 2.",
+    "opcion_c": "La información de las condiciones 3 y 4.",
+    "opcion_d": "El monto total de las donaciones y la información de las condiciones 2 y 3.",
+    "respuesta_correcta": "A",
+    "explicacion_correcta": "Para hallar un valor en pesos es indispensable conocer el monto total recolectado. Luego, para la región norte se necesita saber qué fracción del total va hacia allá (Condición 1: $60\\%$) y, de esa parte, qué porcentaje específico se destina a desastres naturales en esa misma región (Condición 3: $15\\%$).",
+    "distractores": [
+      {
+        "letra": "A",
+        "diagnostico": "¡Perfecto! Identificaste correctamente que se necesita una base en pesos y la cadena de porcentajes específica para la región norte.",
+        "pista": "Saber filtrar información relevante y descartar distractores (como las condiciones 2 y 4) es vital para el ICFES."
+      },
+      {
+        "letra": "B",
+        "diagnostico": "Omites el monto total en pesos (sin él solo obtienes porcentajes) y mezclas la condición general de desastres con la región norte sin saber su distribución interna.",
+        "pista": "¿Puedes dar una respuesta en 'pesos' si no tienes ningún valor monetario inicial? ¿Qué condición habla específicamente del norte y desastres?"
+      },
+      {
+        "letra": "C",
+        "diagnostico": "Seleccionas las reglas de distribución interna pero omites la proporción en que se divide el país (Condición 1) y el dinero total.",
+        "pista": "Si sabes el porcentaje interno del norte y sur, ¿cómo sabes cuánto dinero le tocó al norte en primer lugar?"
+      },
+      {
+        "letra": "D",
+        "diagnostico": "Incluyes la condición de desastres globales (Condición 2) que entra en conflicto o es redundante si ya aplicas la específica de la región norte (Condición 3), y falta la división por regiones (Condición 1).",
+        "pista": "¿Cómo sabes qué parte del monto total llegó a la región norte antes de aplicarle el $15\\%$ de la Condición 3?"
+      }
+    ]
+  },
+  {
+    "materia": "Matemáticas",
+    "topico": "Ecuaciones y Porcentajes Residuales",
+    "nivel": "avanzado",
+    "enunciado": "La alcaldía de un municipio realizó un concierto en el parque principal. Debido a la lluvia, el 50% de los asistentes se retiró después de una hora, el 30% del total de asistentes después de dos horas y los 100 asistentes restantes se quedaron hasta que finalizó el evento. ¿Cuántos asistentes había al comenzar el concierto?",
+    "opcion_a": "500",
+    "opcion_b": "400",
+    "opcion_c": "330",
+    "opcion_d": "180",
+    "respuesta_correcta": "A",
+    "explicacion_correcta": "Sumamos los porcentajes de las personas que se retiraron respecto al total: $50\\% + 30\\% = 80\\%$. El porcentaje de personas que se quedó hasta el final es el complemento: $100\\% - 80\\% = 20\\%$. Si el $20\\%$ del total ($0,20 \\times T$) equivale a $100$ personas, despejamos el total: $T = \\frac{100}{0,20} = 500$ asistentes.",
+    "distractores": [
+      {
+        "letra": "A",
+        "diagnostico": "¡Excelente! Has sumado correctamente las proporciones de retiro y relacionado el porcentaje restante con la cantidad absoluta de personas.",
+        "pista": "Cuando todos los porcentajes se refieren a la misma base ('del total'), se pueden sumar y restar sin problema."
+      },
+      {
+        "letra": "B",
+        "diagnostico": "Calculas erróneamente asumiendo que las 100 personas representan el $25\\%$ de los asistentes en vez del $20\\%$.",
+        "pista": "Si se retiró el $50\\%$ y luego el $30\\%$, ¿qué porcentaje se retiró en total? ¿Qué porcentaje exacto queda para los 100 asistentes?"
+      },
+      {
+        "letra": "C",
+        "diagnostico": "Intentas aplicar descuentos sucesivos sobre el remanente (el $30\\%$ del $50\\%$) en lugar de tomar ambos porcentajes del total original.",
+        "pista": "Lee con cuidado: el segundo retiro dice claramente 'el $30\\%$ del total de asistentes', no el $30\\%$ de los que quedaban."
+      },
+      {
+        "letra": "D",
+        "diagnostico": "Sumaste los números del problema ($100 + 50 + 30 = 180$) sin diferenciar entre porcentajes y cantidades de personas.",
+        "pista": "No puedes sumar porcentajes con número de personas. Usa el porcentaje que quedó para encontrar el total."
+      }
+    ]
+  }
+]
