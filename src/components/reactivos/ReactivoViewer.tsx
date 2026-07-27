@@ -36,14 +36,14 @@ export function autoFormatLatex(text: string): string {
   let formatted = text
 
   // 1. Reemplazar expresiones entre paréntesis con comandos LaTeX como (\to \theta) -> ($\to \theta$)
-  formatted = formatted.replace(/\((\\to\s*\\[a-zA-Z]+|\\[a-zA-Z]+[^\)]*)\)/g, '($$$1$$)')
+  formatted = formatted.replace(/\(([^)]*\\[a-zA-Z]+[^)]*)\)/g, (_match, p1) => `($${p1.trim()}$)`)
 
   // 2. Reemplazar grados como 30^{\circ} o 60^{\circ} por $30^{\circ}$ si no tienen $
-  formatted = formatted.replace(/(?<!\$)\b(\d+)\s*\^{\s*\\circ\s*}(?!\$)/g, '$$$1^{\\circ}$$')
-  formatted = formatted.replace(/(?<!\$)\b(\d+)\s*\\circ(?!\$)/g, '$$$1^{\\circ}$$')
+  formatted = formatted.replace(/(?<!\$)\b(\d+)\s*\^{\s*\\circ\s*}(?!\$)/g, (_match, p1) => `$${p1}^{\\circ}$`)
+  formatted = formatted.replace(/(?<!\$)\b(\d+)\s*\\circ(?!\$)/g, (_match, p1) => `$${p1}^{\\circ}$`)
 
   // 3. Reemplazar símbolos LaTeX sueltos como \theta, \mu_s, \tan, \Sigma sin $
-  formatted = formatted.replace(/(?<!\$)\\(theta|alpha|beta|gamma|delta|pi|sigma|Sigma|omega|mu|lambda|to|approx|cdot|frac|sqrt|tan|sin|cos)(?=[^a-zA-Z]|$)(?!\$)/g, (match) => `\$${match}\$`)
+  formatted = formatted.replace(/(?<!\$)\\(theta|alpha|beta|gamma|delta|pi|sigma|Sigma|omega|mu|lambda|to|approx|cdot|frac|sqrt|tan|sin|cos)(?=[^a-zA-Z]|$)(?!\$)/g, (match) => `$${match}$`)
 
   // 4. Limpiar cualquier triple $$$ duplicado
   formatted = formatted.replace(/\$\$\$+/g, '$')
