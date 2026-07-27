@@ -2,8 +2,10 @@
 
 import { useState } from 'react'
 import ReactMarkdown from 'react-markdown'
-import remarkMath from 'remark-math'
-import rehypeKatex from 'rehype-katex'
+import rehypeRaw from 'rehype-raw'
+import katex from 'katex'
+import 'katex/dist/katex.min.css'
+
 import { CheckCircle, XCircle, BrainCircuit, ArrowRight, RotateCcw, Lightbulb } from 'lucide-react'
 import type { Reactivo, OpcionLetter, DistractorFeedback } from '@/lib/types'
 
@@ -27,49 +29,67 @@ interface ReactivoViewerProps {
 }
 
 // ============================================================
-// AUTO-FORMATO DE LATEX
+// RENDERIZADO KA TEX Y LATEX
 // ============================================================
 
-export function autoFormatLatex(text: string): string {
+export function renderLatexToHtml(text: string): string {
   if (!text) return ''
 
-  const blocks: string[] = []
+  let s = text
 
-  // 1. Proteger bloques KaTeX existentes ($...$ y $$...$$)
-  const placeholderText = text.replace(/(\$\$[\s\S]*?\$\$|\$[^\$\n]+\$)/g, (match) => {
-    blocks.push(match)
-    return `___MATH_BLOCK_${blocks.length - 1}___`
+  // 1. Convertir paréntesis con expresiones LaTeX como (\to \theta) -> ($\to \theta$)
+  s = s.replace(/\(([^)]*\\[a-zA-Z]+[^)]*)\)/g, (_m, p1) => `($${p1.trim()}$)`)
+
+  // 2. Convertir grados 30^{\circ} -> $30^{\circ}$
+  s = s.replace(/(?<!\$)\b(\d+)\s*\^{\s*\\circ\s*}(?!\$)/g, (_m, p1) => `$${p1}^{\\circ}$`)
+  s = s.replace(/(?<!\$)\b(\d+)\s*\\circ(?!\$)/g, (_m, p1) => `$${p1}^{\\circ}$`)
+
+  // 3. Renderizar bloques de matemática de bloque $$...$$ con KaTeX
+  s = s.replace(/\$\$([\s\S]*?)\$\$/g, (_, math) => {
+    try {
+      const html = katex.renderToString(math.trim(), { displayMode: true, throwOnError: false })
+      return `<div class="my-2 flex justify-center">${html}</div>`
+    } catch {
+      return math
+    }
   })
 
-  let formatted = placeholderText
+  // 4. Renderizar expresiones de matemática en línea $...$ con KaTeX
+  s = s.replace(/\$([^\$\n]+?)\$/g, (_, math) => {
+    try {
+      const html = katex.renderToString(math.trim(), { displayMode: false, throwOnError: false })
+      return `<span class="inline-block align-middle my-0.5">${html}</span>`
+    } catch {
+      return math
+    }
+  })
 
-  // 2. Formatear únicamente texto fuera de bloques KaTeX
-  formatted = formatted.replace(/\(([^)]*\\[a-zA-Z]+[^)]*)\)/g, (_match, p1) => `($${p1.trim()}$)`)
-  formatted = formatted.replace(/(?<!\$)\b(\d+)\s*\^{\s*\\circ\s*}(?!\$)/g, (_match, p1) => `$${p1}^{\\circ}$`)
-  formatted = formatted.replace(/(?<!\$)\b(\d+)\s*\\circ(?!\$)/g, (_match, p1) => `$${p1}^{\\circ}$`)
-
-  // 3. Restaurar los bloques KaTeX intactos
-  formatted = formatted.replace(/___MATH_BLOCK_(\d+)___/g, (_match, id) => blocks[parseInt(id, 10)])
-
-  return formatted
+  return s
 }
 
-// ============================================================
-// COMPONENTE: Renderizador de texto con LaTeX
-// ============================================================
-
-function TextoLatex({ children }: { children: string }) {
-  const content = autoFormatLatex(children)
+function TextoLatex({ children, className = '' }: { children: string; className?: string }) {
+  const htmlContent = renderLatexToHtml(children)
   return (
-    <ReactMarkdown
-      remarkPlugins={[remarkMath]}
-      rehypePlugins={[rehypeKatex]}
-      components={{
-        p: ({ children }) => <span>{children}</span>,
-      }}
-    >
-      {content}
-    </ReactMarkdown>
+    <span
+      className={className}
+      dangerouslySetInnerHTML={{ __html: htmlContent }}
+    />
+  )
+}
+
+function RenderContenidoLatex({ content, className = '' }: { content: string; className?: string }) {
+  const htmlContent = renderLatexToHtml(content)
+  return (
+    <div className={`prose prose-sm max-w-none text-stone-800 leading-relaxed ${className}`}>
+      <ReactMarkdown
+        rehypePlugins={[rehypeRaw]}
+        components={{
+          p: ({ children }) => <p className="mb-3">{children}</p>,
+        }}
+      >
+        {htmlContent}
+      </ReactMarkdown>
+    </div>
   )
 }
 
@@ -112,7 +132,6 @@ export default function ReactivoViewer({
   function handleConfirmar() {
     if (!opcionSeleccionada || respondido) return
     setRespondido(true)
-    // Pequeño delay para animar la transición
     setTimeout(() => setMostrarFeedback(true), 200)
     onAnswer?.(opcionSeleccionada === reactivo.respuestaCorrecta, opcionSeleccionada)
   }
@@ -177,14 +196,7 @@ export default function ReactivoViewer({
         <div className="flex items-center gap-2 text-xs font-bold text-stone-400 uppercase tracking-wider mb-3">
           <span>Enunciado</span>
         </div>
-        <div className="text-stone-800 leading-relaxed text-base prose prose-sm max-w-none">
-          <ReactMarkdown
-            remarkPlugins={[remarkMath]}
-            rehypePlugins={[rehypeKatex]}
-          >
-            {autoFormatLatex(reactivo.enunciado)}
-          </ReactMarkdown>
-        </div>
+        <RenderContenidoLatex content={reactivo.enunciado} />
       </div>
 
       {/* Opciones A, B, C, D */}
@@ -232,7 +244,7 @@ export default function ReactivoViewer({
           disabled={!opcionSeleccionada}
           className={`w-full py-3.5 rounded-xl font-bold text-sm flex items-center justify-center gap-2 transition-all duration-200 ${
             opcionSeleccionada
-              ? 'bg-smart-blue hover:bg-smart-blueDark text-white shadow-smart'
+              ? 'bg-smart-blue hover:bg-smart-blueDark text-white shadow-smart cursor-pointer'
               : 'bg-stone-100 text-stone-400 cursor-not-allowed'
           }`}
         >
@@ -278,22 +290,17 @@ export default function ReactivoViewer({
           {/* Contenido del diagnóstico */}
           <div className="bg-white/80 rounded-xl p-4 border border-white shadow-sm">
             {esCorrecta ? (
-              // Explicación de la respuesta correcta
-              <div className="text-sm text-stone-700 leading-relaxed prose prose-sm max-w-none">
-                <ReactMarkdown
-                  remarkPlugins={[remarkMath]}
-                  rehypePlugins={[rehypeKatex]}
-                >
-                  {autoFormatLatex(reactivo.explicacionCorrecta)}
-                </ReactMarkdown>
-              </div>
+              // Explicación de la respuesta correcta con KaTeX
+              <RenderContenidoLatex content={reactivo.explicacionCorrecta} />
             ) : (
-              // Diagnóstico del distractor
+              // Diagnóstico del distractor con KaTeX
               <div className="space-y-3">
                 <div className="text-sm text-stone-700 leading-relaxed">
                   <span className="font-bold text-red-600">Diagnóstico:</span>{' '}
-                  {getDistractor(opcionSeleccionada)?.diagnostico ||
-                    'Revisa el concepto asociado a esta pregunta.'}
+                  <TextoLatex>
+                    {getDistractor(opcionSeleccionada)?.diagnostico ||
+                      'Revisa el concepto asociado a esta pregunta.'}
+                  </TextoLatex>
                 </div>
                 {/* Respuesta correcta indicada */}
                 <div className="flex items-center gap-2 pt-2 border-t border-stone-100">
@@ -314,7 +321,7 @@ export default function ReactivoViewer({
             {!esCorrecta && (
               <button
                 onClick={handleAbrirTutor}
-                className="flex-1 flex items-center justify-center gap-2 py-3 px-4 rounded-xl bg-smart-blue text-white font-bold text-sm hover:bg-smart-blueDark transition-all duration-200 shadow-smart"
+                className="flex-1 flex items-center justify-center gap-2 py-3 px-4 rounded-xl bg-smart-blue text-white font-bold text-sm hover:bg-smart-blueDark transition-all duration-200 shadow-smart cursor-pointer"
               >
                 <BrainCircuit className="w-4 h-4" />
                 <span>Pedir ayuda al Tutor IA</span>
@@ -332,7 +339,7 @@ export default function ReactivoViewer({
                   handleReintentar()
                 }
               }}
-              className={`flex items-center justify-center gap-2 py-3 px-4 rounded-xl font-bold text-sm transition-all duration-200 ${
+              className={`flex items-center justify-center gap-2 py-3 px-4 rounded-xl font-bold text-sm transition-all duration-200 cursor-pointer ${
                 esCorrecta
                   ? 'flex-1 bg-smart-green hover:bg-smart-greenHover text-white shadow-green'
                   : 'bg-stone-100 hover:bg-stone-200 text-stone-600'
@@ -357,7 +364,7 @@ export default function ReactivoViewer({
             <div className="flex items-start gap-2 bg-amber-50 border border-amber-200 rounded-xl p-3">
               <Lightbulb className="w-4 h-4 text-amber-600 shrink-0 mt-0.5" />
               <p className="text-xs text-amber-800">
-                <strong>Pista:</strong> {getDistractor(opcionSeleccionada)?.pista}
+                <strong>Pista:</strong> <TextoLatex>{getDistractor(opcionSeleccionada)?.pista || ''}</TextoLatex>
               </p>
             </div>
           )}
